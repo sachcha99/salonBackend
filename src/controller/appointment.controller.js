@@ -1,47 +1,48 @@
-const HairStyle = require("../model/hairStyle.model");
+const Appointment = require("../model/appointment.model");
 
-//Add New Hair Style
-const createHairStyle = async (req, res) => {
+//Add New Appointment
+const createAppointment = async (req, res) => {
     if (req.body) {
 
         const data = {
             name: req.body.name,
             description: req.body.description,
-            image: req.body.image,
+            type: req.body.type,
+            datetime: req.body.datetime,
         }
-        const hairStyle = new HairStyle(data);
+        const appointment = new Appointment(data);
 
-        await hairStyle.save()
+        await appointment.save()
             .then(data => res.status(200).send({ data: data }))
             .catch(err => res.send(err));
 
     }
 }
 
-//update Hair Style Details
-const updateHairStyle = async (req, res) => {
+//update Appointment Details
+const updateAppointment = async (req, res) => {
     if (req.body) {
         if (!req.params.id) return res.status(500).send("Id is missing");
         let id = req.params.id;
 
-        updateDetails(id, req, (err, hairStyle) => {
+        updateDetails(id, req, (err, appointment) => {
             if (err) return res.status(500).send(err);
-            res.status(200).send(hairStyle);
+            res.status(200).send(appointment);
         })
     }
 }
 
 function updateDetails(id, req, callback) {
-    HairStyle.findByIdAndUpdate(id, req.body)
+    Appointment.findByIdAndUpdate(id, req.body)
         .then((res) => {
-            HairStyle.findOne({ _id: id }, (err, result) => {
+            Appointment.findOne({ _id: id }, (err, result) => {
                 if (err) {
                     console.log(err);
                     return callback(err);
                 } else {
-                    var hairStyle = result;
-                    console.log(hairStyle);
-                    return callback(null, hairStyle);
+                    var appointment = result;
+                    console.log(appointment);
+                    return callback(null, appointment);
                 }
             });
         })
@@ -51,9 +52,9 @@ function updateDetails(id, req, callback) {
         })
 }
 
-//get All Hair style
-const getAllHairStyles = async (req, res) => {
-    await HairStyle.find()
+//get All Appointment
+const getAllAppointments = async (req, res) => {
+    await Appointment.find()
         .then((data) => {
             res.status(200).send(data);
         })
@@ -62,10 +63,10 @@ const getAllHairStyles = async (req, res) => {
         });
 }
 
-//delete hair style
-const deleteHairStyle = async (req, res) => {
+//delete Appointment
+const deleteAppointment = async (req, res) => {
     if (req.params.id) {
-        await HairStyle.findByIdAndDelete(req.params.id, (err, result) => {
+        await Appointment.findByIdAndDelete(req.params.id, (err, result) => {
             if (err) return res.status(500).send(err);
             console.log(result);
             return res.status(200).send(result);
@@ -75,8 +76,8 @@ const deleteHairStyle = async (req, res) => {
 
 
 module.exports = {
-    createHairStyle: createHairStyle,
-    updateHairStyle: updateHairStyle,
-    deleteHairStyle: deleteHairStyle,
-    getAllHairStyles: getAllHairStyles,
+    createAppointment: createAppointment,
+    updateAppointment: updateAppointment,
+    deleteAppointment: deleteAppointment,
+    getAllAppointments: getAllAppointments,
 }

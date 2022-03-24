@@ -1,47 +1,48 @@
-const HairStyle = require("../model/hairStyle.model");
+const Leave = require("../model/leave.model");
 
-//Add New Hair Style
-const createHairStyle = async (req, res) => {
+//Add New Leave
+const createLeave = async (req, res) => {
     if (req.body) {
 
         const data = {
             name: req.body.name,
             description: req.body.description,
-            image: req.body.image,
+            type: req.body.type,
+            datetime: req.body.datetime,
         }
-        const hairStyle = new HairStyle(data);
+        const leave = new Leave(data);
 
-        await hairStyle.save()
+        await leave.save()
             .then(data => res.status(200).send({ data: data }))
             .catch(err => res.send(err));
 
     }
 }
 
-//update Hair Style Details
-const updateHairStyle = async (req, res) => {
+//update Leave Details
+const updateLeave = async (req, res) => {
     if (req.body) {
         if (!req.params.id) return res.status(500).send("Id is missing");
         let id = req.params.id;
 
-        updateDetails(id, req, (err, hairStyle) => {
+        updateDetails(id, req, (err, leave) => {
             if (err) return res.status(500).send(err);
-            res.status(200).send(hairStyle);
+            res.status(200).send(leave);
         })
     }
 }
 
 function updateDetails(id, req, callback) {
-    HairStyle.findByIdAndUpdate(id, req.body)
+    Leave.findByIdAndUpdate(id, req.body)
         .then((res) => {
-            HairStyle.findOne({ _id: id }, (err, result) => {
+            Leave.findOne({ _id: id }, (err, result) => {
                 if (err) {
                     console.log(err);
                     return callback(err);
                 } else {
-                    var hairStyle = result;
-                    console.log(hairStyle);
-                    return callback(null, hairStyle);
+                    var leave = result;
+                    console.log(leave);
+                    return callback(null, leave);
                 }
             });
         })
@@ -51,9 +52,9 @@ function updateDetails(id, req, callback) {
         })
 }
 
-//get All Hair style
-const getAllHairStyles = async (req, res) => {
-    await HairStyle.find()
+//get All Leave
+const getAllLeaves = async (req, res) => {
+    await Leave.find()
         .then((data) => {
             res.status(200).send(data);
         })
@@ -62,10 +63,10 @@ const getAllHairStyles = async (req, res) => {
         });
 }
 
-//delete hair style
-const deleteHairStyle = async (req, res) => {
+//delete Leave
+const deleteLeave = async (req, res) => {
     if (req.params.id) {
-        await HairStyle.findByIdAndDelete(req.params.id, (err, result) => {
+        await Leave.findByIdAndDelete(req.params.id, (err, result) => {
             if (err) return res.status(500).send(err);
             console.log(result);
             return res.status(200).send(result);
@@ -75,8 +76,8 @@ const deleteHairStyle = async (req, res) => {
 
 
 module.exports = {
-    createHairStyle: createHairStyle,
-    updateHairStyle: updateHairStyle,
-    deleteHairStyle: deleteHairStyle,
-    getAllHairStyles: getAllHairStyles,
+    createLeave: createLeave,
+    updateLeave: updateLeave,
+    deleteLeave: deleteLeave,
+    getAllLeaves: getAllLeaves,
 }

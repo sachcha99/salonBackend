@@ -5,6 +5,8 @@ const connectDB = require("./src/config/database");
 const UserAPI = require("./src/api/user.api");
 const HairStyleAPI = require("./src/api/hairStyle.api");
 const TreatmentAPI = require("./src/api/treatment.api");
+const AppointmentAPI = require("./src/api/appointment.api");
+const LeaveAPI = require("./src/api/leave.api");
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -21,6 +23,8 @@ app.get("/", (req, res) => {
 app.use("/user", UserAPI());
 app.use("/hairstyle", HairStyleAPI());
 app.use("/treatment", TreatmentAPI());
+app.use("/appointment", AppointmentAPI());
+app.use("/leave", LeaveAPI());
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
