@@ -7,5 +7,6 @@ module.exports = function (){
     router.post('/create', AppointmentController.createAppointment);
     router.put('/update/:id', AppointmentController.updateAppointment);
     router.delete('/delete/:id', AppointmentController.deleteAppointment);
+    router.get('/:id', AppointmentController.getAppointmentById);
     return router;
 }

@@ -62,7 +62,17 @@ const getAllLeaves = async (req, res) => {
             res.send(error);
         });
 }
-
+//get Leave by ID
+const getLeaveById = async (req, res) => {
+    await Leave.find({ userID: req.params.userID }, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+        console.log(result);
+      }
+    });
+  };
 //delete Leave
 const deleteLeave = async (req, res) => {
     if (req.params.id) {
@@ -80,4 +90,5 @@ module.exports = {
     updateLeave: updateLeave,
     deleteLeave: deleteLeave,
     getAllLeaves: getAllLeaves,
+    getLeaveById:getLeaveById
 }

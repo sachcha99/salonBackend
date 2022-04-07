@@ -63,6 +63,18 @@ const getAllAppointments = async (req, res) => {
         });
 }
 
+//get Appointment by ID
+const getAppointmentById = async (req, res) => {
+    await Appointment.find({ userID: req.params.userID }, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+        console.log(result);
+      }
+    });
+  };
+
 //delete Appointment
 const deleteAppointment = async (req, res) => {
     if (req.params.id) {
@@ -80,4 +92,5 @@ module.exports = {
     updateAppointment: updateAppointment,
     deleteAppointment: deleteAppointment,
     getAllAppointments: getAllAppointments,
+    getAppointmentById: getAppointmentById,
 }

@@ -7,5 +7,6 @@ module.exports = function (){
     router.post('/create', LeaveController.createLeave);
     router.put('/update/:id', LeaveController.updateLeave);
     router.delete('/delete/:id', LeaveController.deleteLeave);
+    router.get('/:id', LeaveController.getLeaveById);
     return router;
 }
