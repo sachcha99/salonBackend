@@ -6,6 +6,7 @@ const createAppointment = async (req, res) => {
 
         const data = {
             name: req.body.name,
+            userID:req.body.userID,
             description: req.body.description,
             type: req.body.type,
             datetime: req.body.datetime,
