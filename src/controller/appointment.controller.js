@@ -66,7 +66,8 @@ const getAllAppointments = async (req, res) => {
 
 //get Appointment by ID
 const getAppointmentById = async (req, res) => {
-    await Appointment.find({ userID: req.params.userID }, (err, result) => {
+    console.log(req.params);
+    await Appointment.find({ userID: req.params.id }, (err, result) => {
       if (err) {
         console.log(err);
       } else {

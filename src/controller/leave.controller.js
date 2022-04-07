@@ -65,7 +65,7 @@ const getAllLeaves = async (req, res) => {
 }
 //get Leave by ID
 const getLeaveById = async (req, res) => {
-    await Leave.find({ userID: req.params.userID }, (err, result) => {
+    await Leave.find({ userID: req.params.id }, (err, result) => {
       if (err) {
         console.log(err);
       } else {
